@@ -1,0 +1,107 @@
+<style>
+    .manswered{
+        outline: 1px solid #666;
+        background: #f0f0f0;
+    }
+
+</style>
+<h3 style="margin-top: 0">
+    <span class="heading" style="font-family: 'Roboto Condensed', Arial, sans-serif;">
+            Мои сообщения
+            <span style="font-size:17px; color:#666666; font-family: 'Roboto Condensed', Arial, sans-serif;"> > Просмотр диалога</span>
+
+    </span>
+</h3>
+<div ng-hide="chatService.dataLoaded" class="preloader" style=" text-align: center;margin-top: 20px;">
+    <img width="20" height="20" ng-src="themes/fenix/img/ajax-loader.gif"/>
+</div>
+<div ng-show="chatService.dataLoaded" style="position: relative;">
+    <div>
+        <h4 style="display: inline-block;color:#777777;">Аккаунт: {{accountName}}</h4>
+    </div>
+    <div class="head_msg_d">
+        <div class="img_msg_profile_d"><a  href="" ng-click="chatService.viewProfile($event, partnerInfo.type,partnerInfo)"><img ng-src="{{ partnerInfo.logo ? partnerInfo.logo : 'themes/fenix/img/default-user.png'}}"></a></div>
+        <div style="margin-left:24px; margin-top:27px; float:left;"><a href="" ng-click="chatService.viewProfile($event, partnerInfo.type,partnerInfo)" >{{partnerInfo.name| limitTo: 35}}{{partnerInfo.name.length > 34 ? '...' : ''}}</a></div>
+
+        <div ng-style="{display: msgsManager.eHasSelected ? 'none' : 'block'}" style="margin:18px 21px 0 0;float:right;">
+            <input style="width: 110px;
+    height: 39px;
+    background-color: #29ABE2;
+    background-repeat: no-repeat;
+    border: none;
+    border-radius: 2px;
+    margin-left: 20px;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 4px;" type="button"  value="Все диалоги" ng-click="showAllDialogs()">
+        </div>
+
+        <div  ng-style="{display: msgsManager.eHasSelected? 'block' : 'none'}">
+            <div class="current_count_msg_d"><span style="padding: 5px 0 0 5px;"><span class="minHide">Выделено</span> {{msgsManager.ecountSelectedMsgs()}} сообщения</span><span class="delete_d" ng-click="deleteAllSelect()"></span></div>
+           <!-- <div class="like_d"><span class="ico-like"></span></div>-->
+            <div class="del_d" ng-click="updateStatusMsgs(statuses.delete)" title="удалить">Удалить</div>
+            <div class="spam_d" ng-click="updateStatusMsgs(statuses.spam)" title="это спам">Это спам</div>
+            <div class="answ_d" ng-click="setFocusEditor()" title="ответить">Ответить</div>
+            <div class="repost_d" ng-click="forwardMessages()" title="переслать">Переслать</div>
+        </div>
+
+
+    </div>
+    <div class='scroll-pane' data-action="1" data-spos="dialog" style="height:450px;" scroll-pane>
+        <div>
+        <div class="ch-select-date-period" >
+            <a href="javascript:void(0)" ng-click="visibleDatePeriods = !visibleDatePeriods">История</a>
+            <div ng-show="visibleDatePeriods">
+                <ul>
+                    <li><a href="javascript:void(0)" ng-click="getPeriodMsgs('one-year');visibleDatePeriods = !visibleDatePeriods">1 год</a></li>
+                    <li><a href="javascript:void(0)" ng-click="getPeriodMsgs('six-months');visibleDatePeriods = !visibleDatePeriods">6 месяцев</a></li>
+                    <li><a href="javascript:void(0)" ng-click="getPeriodMsgs('three-months');visibleDatePeriods = !visibleDatePeriods">3 месяца</a></li>
+                    <li><a href="javascript:void(0)" ng-click="getPeriodMsgs('thirty-days');visibleDatePeriods = !visibleDatePeriods">30 дней</a></li>
+                    <li><a href="javascript:void(0)" ng-click="getPeriodMsgs('seven-days');visibleDatePeriods = !visibleDatePeriods">7 дней</a></li>
+                    <li><a href="javascript:void(0)" ng-click="getPeriodMsgs('yesterday');visibleDatePeriods = !visibleDatePeriods">Вчера</a></li>
+                    <li><a href="javascript:void(0)" ng-click="getPeriodMsgs('today');visibleDatePeriods = !visibleDatePeriods">Сегодня</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="main_msg_d"   ng-repeat="(key, message) in thread">
+            <div class="main_message" ng-if="message.own_msg" ng-show="(message.msg || (!message.msg && message.attach.data)) ? true: false">
+                <div class="date_d"> {{message.sender.name}}{{message.sender.name ? ' - ': ''}}{{message.date_created * 1000 | date:'dd.MM.yyyy'}}<br/>{{message.date_created * 1000 | date:' в HH:mm'}}</div>
+                <div class="message_d_my" data-msgid ="{{key}}" ng-class="(message.is_internal == '1') ? 'ch_internal_msg' : ''" >
+                    <select-msg smsg="{id:message.id,msg:message.msg}" ng-if="message.is_internal != '1'"></select-msg>
+                    <div style="max-width:590px; float:left;word-wrap:break-word;" >
+                        <p ng-bind-html="chatService.renderHtml(message.msg)"></p>
+                        <msg-attach iattach="message.attach.data" vtype="chatBig"></msg-attach>
+                    </div>
+                    <!--<div class="like_msg_d_my" style=""></div>-->
+                    <div style="clear:both;"></div>
+                </div>
+            </div>
+            <div class="main_message" ng-if="!message.own_msg" ng-show="(message.msg || (!message.msg && message.attach.data)) ? true: false">
+                <div class="date_d" >{{message.sender.name}}{{message.sender.name ? ' - ': ''}}{{message.date_created * 1000 | date:'dd.MM.yyyy'}}<br/>{{message.date_created * 1000 | date:' в HH:mm'}}</div>
+                <div class="message_d_me" data-msgid ="{{key}}" ng-class="(message.is_internal == '1') ? 'ch_internal_msg' : ''" >
+                    <select-msg smsg="{id:message.id,msg:message.msg}" ng-if=" message.is_internal != '1'"></select-msg>
+                    <div style="max-width:590px; float:left;word-wrap:break-word;" >
+                        <p ng-bind-html="chatService.renderHtml(message.msg)"></p>
+                        <msg-attach iattach="message.attach.data" vtype="chatBig"></msg-attach>
+                    </div>
+                    <!--<div class="like_msg_d" style=""></div>-->
+                    <div style="clear:both;"></div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <support-controls contact="{{activeContact}}" account="{{activeAccount}}" lastmsg="{{thread[thread.length-1]['is_internal'] == '1' ? thread[thread.length-2] : thread[thread.length-1]}}" viewtype="1" ng-if="chatService.isSP()"></support-controls>
+    <div class="write_msg_d container_editor">
+        <div isolate>
+            <div id="editor" contenteditable="true"  data-ph="Введите сообщение..." paste-media></div>
+            <div class="photo_ico_msg_d" data-id-uploader="chatupload" add-image-msg ></div>
+            <input type="button" class="btn_d" value="Oтправить" ng-click="sendMsg()">
+            <div media-preview></div>
+            <div image-preview data-type-preview="large"></div>
+            <img id="img_storage" data-id-editor="editor" data-type-preview="large" imageonload />
+        </div>
+    </div>
+
+</div>

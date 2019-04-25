@@ -1,0 +1,31 @@
+
+<div  class="image_preview" ng-show="showImageContainer" >
+
+    <div class="">
+        <!--style="overflow: hidden; display: block; height: 173px;"-->
+        <div class="media_c_linkcon" >
+            <div class="media_linkimg_container" ng-show="showPreloader">
+                <div id="m_linkimg_loader" class="m_linkimg_loader" ></div>
+            </div>
+            <div ng-show="showImagePreview" style="overflow: hidden;">
+                <div class="media_img_container {{bnspam}}"  ng-repeat="item in imgsStorage.items">
+                    <div  style="height: 80px;">
+                        <img  ng-src="{{item.image}}" style="max-height:80px;">
+                        <div class="m_linkimg_controls">
+
+                            <div class="m_linkimg_controls_btn_group float_r" >
+                                <div class="m_linkimg_controls_btn" ng-click="delItem(item.id)">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,122 @@
+<h3 class="h3chat">
+    <span class="heading">Мои сообщения <span class="addh3chat" style=""> > Диалоги</span></span>
+</h3>
+<div ng-hide="chatService.dataLoaded" class="preloader">
+    <img width="20" height="20" ng-src="themes/fenix/img/ajax-loader.gif"/>
+</div>
+<div ng-show="chatService.dataLoaded">
+    <div ng-if="accounts.length > 1">
+        <h4 style="display: inline-block;color:#777777;">Мои аккаунты: </h4>
+        <ul style="display:inline-block;text-decoration: none;">
+            <li style="display: inline-block;" ng-repeat="account in accounts">
+                <button class="btn" ng-disabled="account.id == activeAccount" ng-click="changeAccount(account.id)">{{account.name}}</button>
+            </li>
+        </ul>
+    </div>
+    <div class="head_msg_m">
+        <div class="countInfo">
+            {{countInfo}}
+        </div>
+        <div class="blockSearch"><input id="quicksearch_m" placeholder="Быстрый поиск контакта"  type="text" ng-model="searchText"></div>
+        <div class="func_msg" style="">
+           <!-- <div class="like_msg" style="float:left;">
+                <div class="like_btn"><span class="count_vote">2</span><span class="ico-like"></span></div>
+            </div>-->
+            <div class="send_msg" data-ng-click="createMsg()">Написать сообщение</div>
+        </div>
+    </div>
+    <div class="alert alert-warning" ng-style="{display: countDialog > 0 ? 'none' : 'block'}">Пусто</div>
+    <div class='scroll-pane' data-action="0" data-spos="dialogs" style="height:574px; overflow:hidden;" scroll-pane>
+        <div>
+            <div class="main_msg_m" ng-repeat="thread in threads | filter:searchText">
+                <!--ng-if="thread.notanswered"-->
+                <div  ng-if="thread.count_msgs" class="mainBlockmsg">
+                    <div class="img_msg_profile_m">
+                        <a href ng-click="chatService.viewProfile($event, thread.sender_info.type,thread.sender_info)">
+                            <!--<img src="/themes/fenix/img/chat_icons/profile-img.jpg">-->
+                            <img ng-src="{{thread.sender_info.logo}}">
+                        </a>
+                    </div>
+                    <div class="data_msg_m">
+                        <div class="nameBlock">
+                            <a href ng-click="chatService.viewProfile($event, thread.sender_info.type,thread.sender_info)">{{thread.sender_info.name}}</a>
+                        </div>
+                        <div class="dateType">{{thread.date_created * 1000 | date:'dd MMM yyyy в HH:mm'}}</div>
+                    </div>
+                    <div class="c-sender" >
+                        <a href="" class="linkColor"  data-ng-click="showDetailDialog(thread.contactId,thread.type)">
+                            <div class="msg_msg" ng-bind-html="chatService.renderHtml(thread.msg)"></div>
+                        </a>
+                        <div class="right_blok_msg">
+                            <!--<a href="#"><span class="delete"></span></a>-->
+                            <div class="count_msg">
+                                <a href="" class="countMsg" data-ng-click="showDetailDialog(thread.contactId,thread.type)">
+                                    <span class="newMsg">+{{thread.count_msgs}}</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--ng-if="thread.notanswered"-->
+                <div  ng-if="!thread.count_msgs && !thread.me_sender">
+                    <div class="img_msg_profile_m">
+                        <a href ng-click="chatService.viewProfile($event, thread.sender_info.type,thread.sender_info)">
+                            <!--<img src="/themes/fenix/img/chat_icons/profile-img.jpg">-->
+                            <img ng-src="{{thread.sender_info.logo}}">
+                        </a>
+                    </div>
+                    <div class="data_msg_m">
+                        <div class="nameBlock">
+                            <a href ng-click="chatService.viewProfile($event, thread.sender_info.type,thread.sender_info)">{{thread.sender_info.name}}</a>
+                        </div>
+                        <div class="dateType">{{thread.date_created * 1000 | date:'dd MMM yyyy в HH:mm'}}</div>
+                    </div>
+                    <div class="c-sender" >
+                        <a href="" class="linkColor"  data-ng-click=" showDetailDialog(thread.contactId,thread.type)">
+                            <div class="msg_msg" ng-bind-html="chatService.renderHtml(thread.msg)"></div>
+                        </a>
+                        <div class="right_blok_msg">
+                            <!--<a href="#"><span class="delete"></span></a>-->
+                        </div>
+                    </div>
+                </div>
+
+                <!--ng-if="!thread.notanswered"-->
+                <div ng-if="!thread.count_msgs">
+                    <div class="img_msg_profile_m">
+                        <a href ng-click="chatService.viewProfile($event, thread.receiver_info.type,thread.receiver_info)">
+                            <!--<img src="/themes/fenix/img/chat_icons/profile-img.jpg">-->
+                            <img class="imgProfile" ng-src="{{thread.receiver_info.logo}}">
+                        </a>
+                    </div>
+                    <div class="data_msg_m">
+                        <div class="nameBlock">
+                            <a href ng-click="chatService.viewProfile($event, thread.receiver_info.type,thread.receiver_info)">{{thread.receiver_info.name}}</a>
+                        </div>
+                        <div style="font-size:12px;">{{thread.date_created * 1000 | date:'dd MMM yyyy в HH:mm'}}</div>
+                    </div>
+
+                    <div class="c-sender" style="">
+
+                        <div class="img_msg_profile2_m">
+                            <a href="#" ng-click="chatService.viewProfile($event, thread.sender_info.type,thread.sender_info)">
+                                <img ng-src="{{thread.sender_info.logo}}">
+                            </a>
+                        </div>
+
+                        <a href="" class="linkColor" data-ng-click="showDetailDialog(thread.contactId,thread.type)">
+
+                            <div class="msg_msg2" style="" ng-bind-html="chatService.renderHtml(thread.msg)"></div>
+
+                        </a>
+                        <div class="right_blok_msg">
+                            <!--<a href="#"><span class="delete"></span></a>-->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

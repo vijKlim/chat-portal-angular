@@ -1,0 +1,130 @@
+
+<style>
+    .chat-supports-panel{
+        width: 100%;
+        height: 60px;
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+    }
+    .chat-supports-panel .desc-buttons{
+        width: 100%;
+        height: 20px;
+        background-color: #f0ffff;
+        text-align: center;
+        color: #0077BE;
+    }
+    .chat-supports-panel ul{
+        list-style: none;
+        margin: 0 auto;
+        width: 80%;
+        text-align: center;
+        color: #0077BE;
+    }
+    .chat-supports-panel .ul-action-support li {display: inline}
+    .action-supp-window{
+        position: absolute;
+        /*bottom: 86px;*/
+        /*left:10px;*/
+        width:250px;
+        background: #fff;
+        box-shadow: 0 0 10px rgba(0,0,0,0.9);
+        padding: 3px;
+        z-index: 99999;
+    }
+    .action-supp-window .frame{
+        text-align: center;
+    }
+    .action-supp-window .frame ul{
+        list-style: none;
+        margin: 0 auto;
+        width: 100%;
+        text-align: center;
+        color:#C2C2C9;
+        font-weight: 600;
+        font-size: 12px;
+    }
+    .action-supp-window .frame .active-link{
+        font-weight: 100;
+        color: #0077BE;
+    }
+    .action-supp-window .frame .active-link li:hover{
+        color:#faa732;
+    }
+    .action-supp-window .toolbar{
+        height: 18px;
+        text-align: left;
+        position: relative;
+    }
+    .action-supp-window .toolbar .close{
+        position: absolute;
+        top:0;
+        right:0;
+        color:#0077BE;
+        font-size: 14px;
+        width: 14px;
+        height: 14px;
+    }
+    .action-supp-window .toolbar .close:hover{
+        color:#faa732;
+    }
+
+</style>
+
+<div class="action-supp-window" ng-style="styler.positionPopup" ng-show="isShowActionFrame">
+    <div class="toolbar" >
+        <i class="icon-info-sign" title="" data-html="true" data-toggle="tooltip"
+           data-placement="top" tooltip ng-mouseover="showInfo($event)"></i>
+        <span class="close" ng-click="isShowActionFrame = !isShowActionFrame">&#10005;</span>
+    </div>
+
+
+
+    <div class="answer-frame" ng-if="isAnswer">
+        <ul>
+            <!--<li ng-repeat="manager in accountManagers">-->
+                <!--<span ng-click="doForwardManager(manager.id)">{{manager.name}}</span>-->
+            <!--</li>-->
+
+        </ul>
+    </div>
+    <div class="not-answer-frame" ng-if="isNotAnswer">
+
+    </div>
+    <div class="forward-manager-frame frame" ng-if="isforwardM">
+        <span>Выберите менеджера:</span>
+        <ul class="active-link">
+            <li ng-repeat="manager in accountManagers">
+                <span ng-click="forwardManager(manager)">{{manager.name}}</span>
+            </li>
+
+        </ul>
+    </div>
+    <div class="forward-account-frame frame" ng-if="isforwardA">
+        <span>Выберите менеджера:</span>
+        <ul>
+            <li ng-repeat="acc in supportAccounts">
+                <span ng-click="forwardAccount(manager.id)">{{acc.name}}</span>
+                <ul class="active-link">
+                    <li ng-repeat="manager in acc.managers">
+                        <span ng-click="forwardAccount(acc,manager)">{{manager.name}}</span>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+</div>
+<div style="margin: 0 auto;padding:2px;height:auto;text-align:center;background-color:#faa732;color:#fff;" ng-if="informStateTalk">{{informStateTalk}}</div>
+<div class="chat-supports-panel">
+    <div class="desc-buttons">{{descSupportButton}}</div>
+
+
+    <ul class="ul-action-support" ng-mouseleave="descSupportButton = ''">
+        <li><img ng-src="/themes/fenix/img/chat_icons/chat_answered_msg.png" data-btnnum="{{action.answer}}" ng-if="visAnswer"></li>
+        <li><img ng-src="/themes/fenix/img/chat_icons/chat_not_answered_msg.png" data-btnnum="{{action.notAnswer}}" ng-if="visNotAnswer"></li>
+        <li><img ng-src="/themes/fenix/img/chat_icons/chat_forward.png" data-btnnum="{{action.forwardManager}}" ng-if="visForwardManager"></li>
+        <li><img ng-src="/themes/fenix/img/chat_icons/chat_forward_far.png" data-btnnum="{{action.forwardAccount}}" ng-if="visForwardAccount"></li>
+        <!--<li><img ng-src="/themes/fenix/img/chat_icons/shop_forward.png" data-btnnum="{{action.forwardShop}}" ng-if="visForwardShop"></li>-->
+    </ul>
+
+</div>
