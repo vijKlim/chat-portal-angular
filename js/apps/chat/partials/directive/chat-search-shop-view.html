@@ -1,0 +1,23 @@
+<div class="content_main_new">
+    <div class='scroll-pane' data-spos="create_msgs" style="height:210px;" scroll-pane>
+        <div>
+            <div id="contacts">
+                <div class="user_main_new" style="position:relative;" ng-repeat="shop in searchService.selectContacts track by $index">
+                    <div class="m_linkimg_controls_btn" style="position:absolute;top:10px;right:0;" ng-click="searchService.removeFromSelects($index)"></div>
+                    <div class="img_msg_profile_new">
+                        <a href="">
+                            <img ng-src="{{ shop.logo ? shop.logo : 'themes/fenix/img/default-user.png'}}">
+                        </a>
+                    </div>
+                    <div class="name_user_new">
+                        <a target="_blank" href >{{shop.shopname}}</a>
+                    </div>
+                    <div class="" ng-repeat="contact in shop.shopContacts">
+                        <img width="50" ng-src="{{ contact.logo ? contact.logo : 'themes/fenix/img/default-user.png'}}">
+                        <a target="_blank" href >{{contact.name}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

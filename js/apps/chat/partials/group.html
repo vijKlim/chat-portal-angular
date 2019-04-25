@@ -1,0 +1,105 @@
+<h3 style="margin-top: 0">
+    <span class="heading" style="font-family: 'Roboto Condensed', Arial, sans-serif;">Чат
+        <span style="font-size:17px; color:#666666; font-family:
+        'Roboto Condensed', Arial, sans-serif;">
+            > {{headTitle}}
+        </span>
+    </span>
+</h3>
+<div >
+    <div class="head_msg_new" >
+        <div style="float:left; width:340px;">
+            <input  id="quickSearchMsg" type="text" placeholder="Поиск..."
+                    ng-model="searchService.asyncSelected" typeahead="obj.name for obj in searchService.getContacts($viewValue)"
+                    typeahead-loading="loadingLocations" required >
+        </div>
+        <div  class="send_msg_new" add-find-contact-member><span title="" data-toggle="tooltip" data-placement="top" tooltip>Добавить</span></div>
+
+    </div>
+
+    <script type="text/ng-template" id="template/typeahead/typeahead-popup.html">
+        <ul class="dropdown-menu" ng-if="isOpen()" ng-style="{top: position.top+'px', left: position.left+'px'}" style="display: block;" role="listbox" aria-hidden="{{!isOpen()}}">
+            <li ng-repeat="match in matches track by $index" ng-class="{active: isActive($index) }" ng-mouseenter="searchService.selectMatch($index)" ng-click="searchService.selectMatch($index)" role="option" id="{{match.id}}">
+                <div typeahead-match index="$index" match="match" query="query" template-url="templateUrl"></div>
+            </li>
+        </ul>
+    </script>
+    <script type="text/ng-template" id="template/typeahead/typeahead-match.html">
+        <table class="">
+            <tr>
+                <td>
+                    <div  style="padding: 0 3px;" ng-mouseenter=" searchService.selectMatch($index) " ng-click="searchService.selectMatch($index)">
+                        <a>
+                            <img width="30px" height="auto"
+                                 ng-src="{{ match.model.logo ? match.model.logo : 'themes/fenix/img/default-user.png'}}"/>
+                                <span style="    display: inline-block;line-height: 12px;vertical-align: middle;">
+                                    {{ match.model.name }}
+                                </span>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </script>
+
+    <div class="content_main_new">
+        <div class='scroll-pane' style="height:210px;" scroll-pane>
+            <div>
+                <div id="contacts">
+                    <div class="user_main_new" style="position:relative;" ng-repeat="scontact in searchService.selectContacts track by $index" >
+                        <div class="m_linkimg_controls_btn" style="position:absolute;top:10px;right:0;" ng-click="searchService.removeFromSelects($index)"></div>
+                        <div class="img_msg_profile_new">
+                            <a href="">
+                                <img ng-src="{{ scontact.logo ? scontact.logo : 'themes/fenix/img/default-user.png'}}">
+                            </a>
+                        </div>
+                        <div class="name_user_new">
+                            <a target="_blank" href="{{domenApp}}/profile/{{scontact.id}}">{{scontact.name}}</a>
+                            <span style="color:#ddd;font-size:11px;display:block;">{{scontact.type == 'group' ? 'группа' : ''}}</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div  ng-if="!existsGroup"  id="create-group-box">
+        <span id="name-group">
+        <input  type="text"  ng-model="newNameGroup" placeholder="название группы" ng-disabled="disabledCreateGroup()">
+        </span>
+        <span id="add-logo-group" style="margin: 0 10px;line-height: 12px;border: 1px solid #ccc;cursor: pointer;display: none;" ng-style="{display: searchService.selectContacts.length > 0 ? 'inline-block' : 'none' }"  data-id-uploader="groupImgLoad" add-group-image>
+            <img id="group-img-load"  width="28" src="/themes/fenix/img/chat_icons/default_logo_group.png" >
+        </span>
+        <div id="create-group-btn" ng-click="createGroup($event)" data-toggle="tooltip" data-placement="top" tooltip>Создать группу</div>
+    </div>
+
+    <div  ng-if="existsGroup"  id="add-group-box" style="background: #EEEEEE;
+    height: auto;
+    overflow: hidden;
+    border-bottom: 1px solid #E1E1E1;
+    min-width: 610px;">
+        <span id="logo-group" style="margin: 0 20px;line-height: 12px;border: 1px solid #ccc;cursor: pointer;display: inline-block;" >
+            <img width="28" ng-src="{{existsGroup.logo}}">
+        </span>
+        <span style="margin: 0 20px 0 0">
+            {{existsGroup.name}}
+        </span>
+        <div id="add-group-btn" ng-click="addInGroup($event,existsGroup.id)" style="display: inline-block;
+    background: #29ABE2;
+    width: 120px;
+    height: 30px;
+    cursor: pointer;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 2px;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 12px;
+    margin: 21px 0 16px 0;" data-toggle="tooltip" data-placement="top" tooltip>Добавить в группу</div>
+    </div>
+
+</div>
+
+
+
+

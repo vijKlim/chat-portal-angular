@@ -1,0 +1,32 @@
+<div style="float:left; width:340px;">
+    <!-- search($viewValue) defined in this derective-->
+    <input  id="quickSearchMsg" type="text" placeholder="Поиск..."
+            ng-model="searchService.asyncSelected" typeahead="obj.name for obj in search($viewValue)"
+            typeahead-loading="loadingLocations" required >
+</div>
+
+<script type="text/ng-template" id="template/typeahead/typeahead-popup.html">
+    <ul class="dropdown-menu" ng-if="isOpen()" ng-style="{top: position.top+'px', left: position.left+'px'}" style="display: block;" role="listbox" aria-hidden="{{!isOpen()}}">
+        <li ng-repeat="match in matches track by $index" ng-class="{active: isActive($index) }" ng-mouseenter="searchService.selectMatch($index)" ng-click="searchService.selectMatch($index)" role="option" id="{{match.id}}">
+            <div typeahead-match index="$index" match="match" query="query" template-url="templateUrl"></div>
+        </li>
+    </ul>
+</script>
+<script type="text/ng-template" id="template/typeahead/typeahead-match.html">
+    <table class="">
+        <tr>
+            <td>
+                <div  style="padding: 0 3px;" ng-mouseenter=" searchService.selectMatch($index) " ng-click="searchService.selectMatch($index)">
+                    <a>
+                        <img width="30px" height="auto"
+                             ng-src="{{ match.model.logo ? match.model.logo : 'themes/fenix/img/default-user.png'}}"/>
+                                <span style="    display: inline-block;line-height: 12px;vertical-align: middle;">
+                                    {{ match.model.name }}
+                                    <span style="color:#ddd;font-size:11px;display:block;">{{match.model.type == 'group' ? 'группа' : ''}}</span>
+                                </span>
+                    </a>
+                </div>
+            </td>
+        </tr>
+    </table>
+</script>

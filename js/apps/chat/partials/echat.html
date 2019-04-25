@@ -1,0 +1,116 @@
+<!--<style>-->
+    <!--.users_online{-->
+        <!--cursor: pointer;-->
+    <!--}-->
+    <!--#info-online{-->
+        <!--cursor:pointer;-->
+        <!--background-color: #0077be;-->
+        <!--color:#fff;-->
+        <!--text-align: center;-->
+        <!--width: 50px;-->
+        <!--height: 40px;-->
+        <!--bottom: 90px;-->
+        <!--right:0;-->
+        <!--position: fixed;-->
+    <!--}-->
+    <!--#info-online:hover{-->
+        <!--background-color: #faa732;-->
+    <!--}-->
+    <!--#info-online span{-->
+        <!--display:block;-->
+        <!--margin-top:10px;-->
+    <!--}-->
+    <!--#info-online span i {-->
+        <!--display:inline-block;-->
+        <!--width: 14px;-->
+        <!--height: 14px;-->
+    <!--}-->
+    <!--/*.go-contact{*/-->
+        <!--/*display: inline-block;*/-->
+        <!--/*background: url('../../../../../../themes/fenix/img/chat_login.png');*/-->
+        <!--/*width: 26px;*/-->
+        <!--/*height: auto;*/-->
+    <!--/*}*/-->
+<!--</style>-->
+<!--<div class="modal_msg" style="z-index:9999;" ng-style="{display: visibleMsgs ? 'block' : 'none'}">-->
+
+    <!--<div class="head_modal">-->
+        <!--<div class="avatar_modal"><img ng-src="{{ partnerInfo.logo ? partnerInfo.logo : 'themes/fenix/img/default-user.png'}}"></div>-->
+        <!--<div class="login_modal"><a href="#">{{partnerInfo.name}}</a></div>-->
+        <!--<div class="options_modal"><span class="delete_modal" id="close2"ng-click="visibleMsgs = false"></span></div>-->
+    <!--</div>-->
+
+    <!--<div class="body_modal">-->
+        <!--&lt;!&ndash;<div  style="height:313px; " id="for_scrollM">&ndash;&gt;-->
+        <!--<div class='scroll-pane' scroll-pane>-->
+            <!--<div>-->
+                <!--<div ng-repeat="(key, message) in thread">-->
+                    <!--<div ng-if="message.own_msg">-->
+                        <!--<div class="message_modal_my" style="width: 88%;">-->
+                            <!--<div>-->
+                                <!--<span style="display:inline;"  ng-bind-html="chatService.renderHtml(message.msg)"></span>-->
+                                <!--<div style="float:right; margin-top:16px;font-size:9px;font-weight: 600;">-->
+                                    <!--{{message.date_created * 1000 | date:'dd.MM в HH:mm'}}-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div ng-if="!message.own_msg">-->
+                        <!--<div class="message_modal_me" style="width: 88%;">-->
+                            <!--<div >-->
+                                <!--<span style="display:inline;" ng-bind-html="chatService.renderHtml(message.msg)"></span>-->
+                                <!--<div style="float:right; margin-top:16px;font-size:9px;font-weight: 600;">-->
+                                    <!--{{message.date_created * 1000 | date:'dd.MM в HH:mm'}}-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+    <!--</div>-->
+
+    <!--<div class="write_modal">-->
+        <!--<div id="editor" contenteditable="true" data-ph="Введите сообщение..." ng-keypress="sendMsg($event,partnerInfo.id)"></div>-->
+        <!--<div class="photo_ico_msg" add-image-msg ></div>-->
+    <!--</div>-->
+<!--</div>-->
+
+<!--<div class="modal_online" style="z-index:9999;" ng-style="{display: visibleContacs ? 'block' : 'none'}">-->
+
+    <!--<div class="head_modal">-->
+        <!--<div class="icon_online"><img ng-src="themes/fenix/img/chat_icons/online_icon.png"></div>-->
+        <!--<div class="login_modal"><a href="/profile/my/tatetChat/#/chat/contacts/all">Контакты (Онлайн 5) <img ng-src="themes/fenix/img/chat_icons/chat_login.png"></a></div>-->
+        <!--<div class="options_modal"><span class="delete_modal" id="close1" ng-click="visibleContacs = false"></span></div>-->
+    <!--</div>-->
+    <!--<div class="body_modal_online">-->
+        <!--&lt;!&ndash;<div style="height:335px;" id="for_scrollC">&ndash;&gt;-->
+        <!--<div class='scroll-pane' scroll-pane>-->
+            <!--<div>-->
+                <!--<div class="users_online" ng-repeat="contact in contacts | filter:searchText" ng-click="showDialog(contact.client.id)">-->
+                    <!--<div class="avatar_user_online"><img ng-src="{{contact.client.logo}}"></div>-->
+                    <!--<div class="login_online_user">{{contact.client.name | limitTo: 20}}{{contact.client.name > 20 ? '...':''}}</div>-->
+                    <!--<div class="count_online_msg" ng-if="contact.count_msgs > 0"><span>{{contact.count_msgs}}</span><img ng-src="themes/fenix/img/chat_icons/count_online_users_msg.png"></div>-->
+                    <!--<div class="count_online_msg" ng-if="contact.count_msgs == 0"></div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+
+        <!--</div>-->
+
+    <!--</div>-->
+    <!--<div class="search_online_modal">-->
+        <!--<textarea rows="" style="overflow:hidden" placeholder="Быстрый поиск контакта" ng-model="searchText"></textarea>-->
+    <!--</div>-->
+<!--</div>-->
+<!--<br>-->
+
+<!--<div ng-click="showWindowContacts()" id="info-online" title="" data-toggle="tooltip" data-placement="top" tooltip>-->
+    <!--<span>5 <i class="icon-user icon-white"></i></span>-->
+<!--</div>-->
+
+
+<!--<img id="img_storage" imageonload />-->
+
+

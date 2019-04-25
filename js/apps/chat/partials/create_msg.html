@@ -1,0 +1,66 @@
+<h3 style="margin-top: 0">
+    <span class="heading" style="font-family: 'Roboto Condensed', Arial, sans-serif;">Мои сообщения <span style="font-size:17px; color:#666666; font-family: 'Roboto Condensed', Arial, sans-serif;"> > Новое сообщение</span></span>
+</h3>
+<div >
+    <div class="head_msg_new" ng-show="!switchToGroup">
+        <div style="float:left; margin-top:24px; margin-left:17px; font-size:18px; font-weight:bold; color:#777777; width:110px;">Получатели </div>
+            <chat-searcher search-type="0"></chat-searcher>
+        <div  class="send_msg_new" add-find-contact><span title="" data-toggle="tooltip" data-placement="top" tooltip>Добавить</span></div>
+
+        <div id="ch-group-tools">
+            <div id="on-create-group" >
+                <label for="on-group" >
+                    <input id="on-group"  type="checkbox" ng-model="isCreateGroup"
+                           ng-true-value="1" ng-false-value="0" ng-disabled="disabledCreateGroup()">
+                    Создать группу
+                </label>
+            </div>
+
+        </div>
+    </div>
+    <div class="head_msg_new" ng-show="switchToGroup">
+        <div style="float:left; margin-top:24px;
+         margin-left:17px; font-size:18px; font-weight:bold; color:#777777; width:400px;">Группа {{group.name}}</div>
+
+        <div style="display: inline-block;
+    background: #29ABE2;
+    width: 90px;
+    height: 30px;
+    cursor: pointer;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 2px;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 12px;
+    margin: 21px 0 11px 0;" ng-click="switchToGroup = !switchToGroup;">Отмена</div>
+    </div>
+
+    <div ng-include src="chatService.getPartial('directive','chat-search-view.html')" ></div>
+
+    <div ng-if="searchService.selectContacts.length > 0 && isCreateGroup" id="create-group-box">
+        <span id="name-group">
+        <input  type="text"  ng-model="newNameGroup" placeholder="название группы" ng-disabled="disabledCreateGroup()">
+        </span>
+        <span id="add-logo-group" style="margin: 0 10px;line-height: 12px;border: 1px solid #ccc;cursor: pointer;display: none;" ng-style="{display: searchService.selectContacts.length > 0 ? 'inline-block' : 'none' }"  data-id-uploader="groupImgLoad" add-group-image>
+            <img id="group-img-load"  width="28" src="/themes/fenix/img/chat_icons/default_logo_group.png" >
+        </span>
+        <div id="create-group-btn" ng-click="createGroup()">Создать группу</div>
+    </div>
+    <div ng-if="!isCreateGroup" class="write_msg_new container_editor">
+        <div isolate>
+            <div id="editor" contenteditable="true" placeholder="Id Number" data-ph="Введите сообщение..." paste-media>{{contentEditor}}</div>
+            <div class="photo_ico_msg_new" data-id-uploader="chatupload" add-image-msg ></div>
+            <input type="button" class="btn_new" value="Oтправить" ng-click="sendMsg($event)"  title="" data-toggle="tooltip" data-placement="top" tooltip>
+            <div media-preview></div>
+            <div image-preview></div>
+            <img id="img_storage" data-id-editor="editor" data-type-preview="large" imageonload />
+        </div>
+
+    </div>
+
+</div>
+
+
+
+

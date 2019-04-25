@@ -1,0 +1,39 @@
+
+<div  class="media_preview" ng-show="showMediaContainer" >
+
+    <div class="preview_share_wrap clear_fix">
+
+        <a target="_blank" href="" target="_blank" rel="nofollow"  class="media_href">Ссылка</a>
+        <div  class="media_x_wrap" tooltip-placement="top" tooltip="Не прикреплять" ng-click="delMediaPreview()">
+        </div>
+    </div>
+    <div class="medadd_c">
+        <!--style="overflow: hidden; display: block; height: 173px;"-->
+        <div class="media_c_linkcon" >
+            <div class="media_linkimg_container" ng-show="showPreloader">
+                <div id="m_linkimg_loader" class="m_linkimg_loader" ></div>
+            </div>
+            <div ng-show="showMediaPreview">
+                <div class="media_linkimg_container"  ng-show="showMimgPreview">
+                    <img  ng-src="{{api.mediaContent.image}}" style="max-height:290px;">
+                    <div class="m_linkimg_controls">
+
+                        <div class="m_linkimg_controls_btn_group float_r" tooltip-placement="top" tooltip="Убрать иллюстрацию">
+                            <div class="m_linkimg_controls_btn" ng-click="delImage()">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="{{api.mediaContent.url}}" target="_blank" rel="nofollow"><h4 class="medadd_c_linkhead">{{api.mediaContent.title}}</h4></a>
+                <!--<div class="page_media_link_addr">{{api.mediaContent.url}}</div>-->
+                <div class="medadd_c_linkdsc">
+                    {{api.mediaContent.description}}
+                </div>
+                <div class="clear"></div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+﻿
+java -jar compiler.jar --js
+   ../../../jquery.mb.emoticons/jquery.mb.emoticons.js
+   scripts/attach-media-module/attach-media.js
+   scripts/app.js
+   scripts/additional-scripts/shared-websocket.js
+   scripts/helpers/helpers.js
+   scripts/services/msgstorage.js
+   scripts/services/chat.js
+   scripts/services/shared-socket.js
+   scripts/services/online.js
+   scripts/services/search.js
+   scripts/services/media-api.js
+   scripts/services/images-storage.js
+   scripts/services/accounts-manager.js
+   scripts/services/contacts-manager.js
+   scripts/services/msgs-manager.js
+   scripts/services/onlineShop.js
+   scripts/services/audio.js
+   scripts/services/main-tools.js
+   scripts/services/support.js
+   scripts/directives/chat.js
+   scripts/directives/drag-resize-box.js
+   scripts/directives/support-controls.js
+   scripts/controllers/contacts.js
+   scripts/controllers/dialogs.js
+   scripts/controllers/dialog.js
+   scripts/controllers/msg.js
+   scripts/controllers/group.js
+   scripts/controllers/forward-msg.js
+   scripts/controllers/echat.js
+   scripts/controllers/admin-panel-echat.js
+   --js_output_file scripts/chatApp.min.js
+
+
+  //END CHAT
+

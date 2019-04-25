@@ -1,0 +1,12 @@
+<div  class="tools-chat" ng-repeat="tool in chatTools">
+    <div class="tool" style="margin-top: 10px;margin-left: 10px;font-size: 12px;">
+        <span ng-if="tool.type == 'checkbox'">
+        <label class="checkbox" for="{{tool.name}}">
+            <input id="{{tool.name}}" type="checkbox" name="{{tool.name}}"
+                   ng-model="tool.value"
+                   ng-true-value="'on'" ng-false-value="'off'" ng-change="tool.update()" >
+            {{tool.label}}
+        </label>
+    </span>
+    </div>
+</div>

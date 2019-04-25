@@ -1,0 +1,31 @@
+
+<div class="e-attach-chat" ng-repeat="item in attach">
+    <div class="e-media-msg-block" style="position: relative;overflow: hidden;" ng-if="item.type=='media'">
+        <table cellpadding="0" cellspacing="0" class="e-media-msg-table">
+            <tbody>
+            <tr>
+                <td ng-if="item.image"   style="background-image: url('{{item.image}}');" class="e-media-msg-thumb">
+                    <a target="_blank" href="{{item.url}}" class="e-media-msg-link-thumb">&nbsp;</a>
+                </td>
+                <td class="e-media-msg-desc-td">
+                    <div class="page_media_link_desc_wrap ">
+                        <a href="{{item.url}}" target="_blank" rel="nofollow" class="e-page_media_link_title">{{item.title}}</a>
+
+                        <div class="page_media_category" ng-if="item.additional_info.category">{{item.additional_info.category}}</div>
+                        <div class="page_media_link_desc">{{item.description}}</div>
+                    </div>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="e-imgs-msg-block" ng-if="item.type=='image'">
+        <div class="e-img-msg">
+            <a href="{{item.image}}" target="_blank"><img ng-src="{{item.image}}" ></a>
+        </div>
+    </div>
+</div>
+
+

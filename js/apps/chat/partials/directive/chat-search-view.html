@@ -1,0 +1,32 @@
+<div class="content_main_new">
+    <div class='scroll-pane' data-spos="create_msgs" style="height:210px;" scroll-pane>
+        <div>
+            <div id="contacts">
+                <div class="user_main_new" style="position:relative;" ng-repeat="scontact in searchService.selectContacts track by $index" ng-if="!switchToGroup">
+                    <div class="m_linkimg_controls_btn" style="position:absolute;top:10px;right:0;" ng-click="searchService.removeFromSelects($index)"></div>
+                    <div class="img_msg_profile_new">
+                        <a href="">
+                            <img ng-src="{{ scontact.logo ? scontact.logo : 'themes/fenix/img/default-user.png'}}">
+                        </a>
+                    </div>
+                    <div class="name_user_new">
+                        <a target="_blank" href ng-click="chatService.viewProfile($event,scontact)">{{scontact.name}}</a>
+                        <span style="color:#ddd;font-size:11px;display:block;">{{scontact.type == 'group' ? 'группа' : ''}}</span>
+                    </div>
+                </div>
+
+                <div class="user_main_new"  ng-if="switchToGroup">
+                    <div class="img_msg_profile_new">
+                        <a href="">
+                            <img ng-src="{{group.logo}}">
+                        </a>
+                    </div>
+                    <div class="name_user_new">
+                        <a  href="javascript:void(0);">{{group.name}}</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
